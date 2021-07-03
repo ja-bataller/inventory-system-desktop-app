@@ -55,7 +55,6 @@ check_borrower_info = []
 check_item_info = []
 check_item_qty = []
 
-
 out_items = []
 
 
@@ -159,7 +158,6 @@ class LoginWindow(Ui_loginWindow, QMainWindow):
                     print(currentUser)
 
                 for x in range(len(currentUser)):
-
                     first_name = currentUser[x][0]
                     last_name = currentUser[x][1]
                     full_name = first_name + " " + last_name
@@ -220,6 +218,27 @@ class LoginWindow(Ui_loginWindow, QMainWindow):
 
                 # -----------------------------------------------------------------------------------------------------
 
+                existing_borrowers_id.clear()
+                main.comboBoxMainRecords.clear()
+                main.comboBoxMainRecords.addItem("---ALL BORROWERS---")
+
+                # MYSQL QUERY - APPEND TO existing_borrowers_id LIST
+                self.mydb = mysql.connector.connect(**DB_configuration)
+                mycursor = self.mydb.cursor()
+                mycursor.execute("SELECT borrowers_num FROM borrowers;")
+
+                for borrower_id in mycursor:
+                    existing_borrowers_id.append(borrower_id)
+
+                ids = list(dict.fromkeys(existing_borrowers_id))
+                for b_id in ids:
+                    main.comboBoxMainRecords.addItems(b_id)
+
+                print("EXISTING BORROWERS ID")
+                print(existing_borrowers_id)
+
+                # -----------------------------------------------------------------------------------------------------
+
                 login.close()
                 main.show()
                 return
@@ -247,26 +266,86 @@ class LoginWindow(Ui_loginWindow, QMainWindow):
                     last_name = currentUser[x][1]
                     full_name = first_name + " " + last_name
 
-                    main.MainSystemUserLbl.setText(full_name)
-                    main.MainSystemUserAccountLbl.setText("Operator")
+                main.MainSystemUserLbl.setText(full_name)
+                main.MainSystemUserAccountLbl.setText("Operator")
 
-                    # GET EQUIPMENTS IN MYSQL DB
-                    # self.mydb = mysql.connector.connect(**DB_configuration)
-                    # mycursor = self.mydb.cursor()
-                    # mycursor.execute("SELECT equipment FROM items")
-                    # for equipment in mycursor:
-                    #     equipments.append(equipment)
-                    #
-                    # equipments_filtered = list(dict.fromkeys(equipments))
-                    # print("EQUIPMENTS")
-                    # print(equipments_filtered)
-                    #
-                    # for equipment in equipments_filtered:
-                    #     main.comboBoxMainEquipment.addItems(equipment)
+                # -----------------------------------------------------------------------------------------------------
 
-                    login.close()
-                    main.show()
-                    return
+                main_equipments.clear()
+
+                # MYSQL QUERY - APPEND TO EQUIPMENTS LIST
+                self.mydb = mysql.connector.connect(**DB_configuration)
+                mycursor = self.mydb.cursor()
+                mycursor.execute("SELECT equipment, quantity FROM items;")
+
+                for item in mycursor:
+                    main_equipments.append(item)
+
+                print(main_equipments)
+
+                # ADD EQUIPMENT TO TABLE
+                main.tableWidget.setRowCount(0)
+                row = 0
+                main.tableWidget.setRowCount(len(main_equipments))
+                for item in main_equipments:
+                    main.tableWidget.setItem(row, 0, QtWidgets.QTableWidgetItem(str(item[0])))
+                    main.tableWidget.setItem(row, 1, QtWidgets.QTableWidgetItem(str(item[1])))
+
+                    row = row + 1
+
+                # -----------------------------------------------------------------------------------------------------
+
+                main_records.clear()
+
+                # MYSQL QUERY - APPEND TO RECORDS LIST
+                self.mydb = mysql.connector.connect(**DB_configuration)
+                mycursor = self.mydb.cursor()
+                mycursor.execute("SELECT name, borrowers_num, item, date_out, date_in  FROM borrowers;")
+
+                for record in mycursor:
+                    main_records.append(record)
+
+                print(main_records)
+
+                # ADD EQUIPMENT TO TABLE
+                main.tableWidget_2.setRowCount(0)
+                row = 0
+                main.tableWidget_2.setRowCount(len(main_records))
+                for b_record in main_records:
+                    main.tableWidget_2.setItem(row, 0, QtWidgets.QTableWidgetItem(str(b_record[0])))
+                    main.tableWidget_2.setItem(row, 1, QtWidgets.QTableWidgetItem(str(b_record[1])))
+                    main.tableWidget_2.setItem(row, 2, QtWidgets.QTableWidgetItem(str(b_record[2])))
+                    main.tableWidget_2.setItem(row, 3, QtWidgets.QTableWidgetItem(str(b_record[3])))
+                    main.tableWidget_2.setItem(row, 4, QtWidgets.QTableWidgetItem(str(b_record[4])))
+
+                    row = row + 1
+
+                # -----------------------------------------------------------------------------------------------------
+
+                existing_borrowers_id.clear()
+                main.comboBoxMainRecords.clear()
+                main.comboBoxMainRecords.addItem("---ALL BORROWERS---")
+
+                # MYSQL QUERY - APPEND TO existing_borrowers_id LIST
+                self.mydb = mysql.connector.connect(**DB_configuration)
+                mycursor = self.mydb.cursor()
+                mycursor.execute("SELECT borrowers_num FROM borrowers;")
+
+                for borrower_id in mycursor:
+                    existing_borrowers_id.append(borrower_id)
+
+                ids = list(dict.fromkeys(existing_borrowers_id))
+                for b_id in ids:
+                    main.comboBoxMainRecords.addItems(b_id)
+
+                print("EXISTING BORROWERS ID")
+                print(existing_borrowers_id)
+
+                # -----------------------------------------------------------------------------------------------------
+
+                login.close()
+                main.show()
+                return
 
         QMessageBox.warning(self, "Error", "This User is not registered.")
         self.lineEditLoginUsername.clear()
@@ -436,6 +515,7 @@ class MainWindow(Ui_MainSystemWindow, QMainWindow):
         super(MainWindow, self).__init__()
         self.setupUi(self)
 
+        self.pushButtonMainShowRecords.clicked.connect(self.show_records)
         self.MainSystemLogOutPushBUtton.clicked.connect(self.logout)
         self.MainSystemAccountSettingsPushButton.clicked.connect(self.changePassword)
         self.MainSystemAddItemPushButton.clicked.connect(self.addremoveItem)
@@ -444,13 +524,73 @@ class MainWindow(Ui_MainSystemWindow, QMainWindow):
         self.MainSystemQrCodeGeneratorPushButton.clicked.connect(self.qr_code_generator)
         self.MainSystemAboutPushButton.clicked.connect(self.about)
 
+    def show_records(self):
+        picked_id = self.comboBoxMainRecords.currentText()
+
+        if self.comboBoxMainRecords.currentIndex() == 0:
+            # -----------------------------------------------------------------------------------------------------
+
+            main_records.clear()
+
+            # MYSQL QUERY - APPEND TO RECORDS LIST
+            self.mydb = mysql.connector.connect(**DB_configuration)
+            mycursor = self.mydb.cursor()
+            mycursor.execute("SELECT name, borrowers_num, item, date_out, date_in  FROM borrowers;")
+
+            for record in mycursor:
+                main_records.append(record)
+
+            print(main_records)
+
+            # ADD EQUIPMENT TO TABLE
+            self.tableWidget_2.setRowCount(0)
+            row = 0
+            self.tableWidget_2.setRowCount(len(main_records))
+            for b_record in main_records:
+                self.tableWidget_2.setItem(row, 0, QtWidgets.QTableWidgetItem(str(b_record[0])))
+                self.tableWidget_2.setItem(row, 1, QtWidgets.QTableWidgetItem(str(b_record[1])))
+                self.tableWidget_2.setItem(row, 2, QtWidgets.QTableWidgetItem(str(b_record[2])))
+                self.tableWidget_2.setItem(row, 3, QtWidgets.QTableWidgetItem(str(b_record[3])))
+                self.tableWidget_2.setItem(row, 4, QtWidgets.QTableWidgetItem(str(b_record[4])))
+
+                row = row + 1
+            return
+            # -----------------------------------------------------------------------------------------------------
+
+        main_records.clear()
+
+        self.mydb = mysql.connector.connect(**DB_configuration)
+        mycursor = self.mydb.cursor()
+        sql = "SELECT name, borrowers_num, item, date_out, date_in FROM borrowers WHERE borrowers_num = %s;"
+        val = (picked_id,)
+        mycursor.execute(sql, val)
+
+        for record in mycursor:
+            main_records.append(record)
+
+        print(main_records)
+
+        # ADD EQUIPMENT TO TABLE
+        self.tableWidget_2.setRowCount(0)
+        row = 0
+        self.tableWidget_2.setRowCount(len(main_records))
+        for b_record in main_records:
+            self.tableWidget_2.setItem(row, 0, QtWidgets.QTableWidgetItem(str(b_record[0])))
+            self.tableWidget_2.setItem(row, 1, QtWidgets.QTableWidgetItem(str(b_record[1])))
+            self.tableWidget_2.setItem(row, 2, QtWidgets.QTableWidgetItem(str(b_record[2])))
+            self.tableWidget_2.setItem(row, 3, QtWidgets.QTableWidgetItem(str(b_record[3])))
+            self.tableWidget_2.setItem(row, 4, QtWidgets.QTableWidgetItem(str(b_record[4])))
+
+            row = row + 1
+        return
+
+
     # LOGOUT PROCESS
     def logout(self):
 
         answer = QMessageBox.question(self, "Logout", "Are you sure you want to logout?",
                                       QMessageBox.Yes | QMessageBox.No)
         if answer == QMessageBox.Yes:
-
             self.tableWidget.setRowCount(0)
 
             equipments.clear()
@@ -505,6 +645,31 @@ class MainWindow(Ui_MainSystemWindow, QMainWindow):
 
     # OPEN IN ITEM WINDOW
     def inItem(self):
+
+        existing_borrowers_id.clear()
+        in_item.comboInOutExistingborrowersinfo.clear()
+        in_item.comboInOutExistingborrowersinfo.addItem("---Choose Borrowers ID Number---")
+        in_item.lineEditInIteminfo.clear()
+
+        # ------------------------------------------------------------
+
+        # MYSQL QUERY - APPEND TO existing_borrowers_id LIST
+        self.mydb = mysql.connector.connect(**DB_configuration)
+        mycursor = self.mydb.cursor()
+        mycursor.execute("SELECT borrowers_num FROM borrowers;")
+
+        for borrower_id in mycursor:
+            existing_borrowers_id.append(borrower_id)
+
+        ids = list(dict.fromkeys(existing_borrowers_id))
+        for b_id in ids:
+            in_item.comboInOutExistingborrowersinfo.addItems(b_id)
+
+        print("EXISTING BORROWERS ID")
+        print(existing_borrowers_id)
+
+        # ------------------------------------------------------------
+
         main.close()
         in_item.show()
 
@@ -637,6 +802,27 @@ class AccountSettingsWindow(Ui_AccountSettingsWindow, QMainWindow):
 
         # -----------------------------------------------------------------------------------------------------
 
+        existing_borrowers_id.clear()
+        main.comboBoxMainRecords.clear()
+        main.comboBoxMainRecords.addItem("---ALL BORROWERS---")
+
+        # MYSQL QUERY - APPEND TO existing_borrowers_id LIST
+        self.mydb = mysql.connector.connect(**DB_configuration)
+        mycursor = self.mydb.cursor()
+        mycursor.execute("SELECT borrowers_num FROM borrowers;")
+
+        for borrower_id in mycursor:
+            existing_borrowers_id.append(borrower_id)
+
+        ids = list(dict.fromkeys(existing_borrowers_id))
+        for b_id in ids:
+            main.comboBoxMainRecords.addItems(b_id)
+
+        print("EXISTING BORROWERS ID")
+        print(existing_borrowers_id)
+
+        # -----------------------------------------------------------------------------------------------------
+
         account_settings.close()
         main.show()
 
@@ -766,6 +952,27 @@ class AddRemoveItemWindow(Ui_addremoveitemWindow, QMainWindow):
 
         # -----------------------------------------------------------------------------------------------------
 
+        existing_borrowers_id.clear()
+        main.comboBoxMainRecords.clear()
+        main.comboBoxMainRecords.addItem("---ALL BORROWERS---")
+
+        # MYSQL QUERY - APPEND TO existing_borrowers_id LIST
+        self.mydb = mysql.connector.connect(**DB_configuration)
+        mycursor = self.mydb.cursor()
+        mycursor.execute("SELECT borrowers_num FROM borrowers;")
+
+        for borrower_id in mycursor:
+            existing_borrowers_id.append(borrower_id)
+
+        ids = list(dict.fromkeys(existing_borrowers_id))
+        for b_id in ids:
+            main.comboBoxMainRecords.addItems(b_id)
+
+        print("EXISTING BORROWERS ID")
+        print(existing_borrowers_id)
+
+        # -----------------------------------------------------------------------------------------------------
+
         addremove_item.close()
         main.show()
 
@@ -776,7 +983,8 @@ class AddRemoveItemWindow(Ui_addremoveitemWindow, QMainWindow):
         pickedQty.clear()
 
         self.comboBoxUpdateInventoryEquipment.clear()
-        self.comboBoxUpdateInventoryEquipment.addItem("--- type here equipment / existing item is already listed below ---")
+        self.comboBoxUpdateInventoryEquipment.addItem(
+            "--- type here equipment / existing item is already listed below ---")
         self.comboBoxUpdateInventoryEquipment.setEnabled(True)
         self.comboBoxUpdateInventoryEquipment.setEditable(False)
         self.comboBoxUpdateInventoryEquipment.setEditable(True)
@@ -1050,7 +1258,7 @@ class AddRemoveItemWindow(Ui_addremoveitemWindow, QMainWindow):
                 addremove_item.pushButtonUpdateinventoryConfirm.setEnabled(False)
 
                 QMessageBox.information(self, "Deleted",
-                                    "The Equipment has been deleted.")
+                                        "The Equipment has been deleted.")
                 return
 
             self.mydb = mysql.connector.connect(**DB_configuration)
@@ -1095,6 +1303,7 @@ class InItemWindow(Ui_initemWindow, QMainWindow):
         super(InItemWindow, self).__init__()
         self.setupUi(self)
 
+        self.pushButtonInSubmit.clicked.connect(self.record_db)
         self.pushButtonInBack.clicked.connect(self.main)
 
     # BACK TO MAIN WINDOW
@@ -1152,8 +1361,126 @@ class InItemWindow(Ui_initemWindow, QMainWindow):
 
         # -----------------------------------------------------------------------------------------------------
 
+        existing_borrowers_id.clear()
+        main.comboBoxMainRecords.clear()
+        main.comboBoxMainRecords.addItem("---ALL BORROWERS---")
+
+        # MYSQL QUERY - APPEND TO existing_borrowers_id LIST
+        self.mydb = mysql.connector.connect(**DB_configuration)
+        mycursor = self.mydb.cursor()
+        mycursor.execute("SELECT borrowers_num FROM borrowers;")
+
+        for borrower_id in mycursor:
+            existing_borrowers_id.append(borrower_id)
+
+        ids = list(dict.fromkeys(existing_borrowers_id))
+        for b_id in ids:
+            main.comboBoxMainRecords.addItems(b_id)
+
+        print("EXISTING BORROWERS ID")
+        print(existing_borrowers_id)
+
+        # -----------------------------------------------------------------------------------------------------
+
         in_item.close()
         main.show()
+
+    def record_db(self):
+        picked_id = self.comboInOutExistingborrowersinfo.currentText()
+        entered_item = self.lineEditInIteminfo.text()
+
+        if self.comboInOutExistingborrowersinfo.currentIndex() == 0:
+            QMessageBox.warning(self, "Error", "Please choose Borrowers ID Number.")
+            return
+
+        # -----------------------------------------------------------------------------------------------------
+
+        # MYSQL QUERY - APPEND TO PICKED QTY LIST
+        self.mydb = mysql.connector.connect(**DB_configuration)
+        mycursor = self.mydb.cursor()
+        sql = "SELECT borrowers_num, date_out item FROM borrowers WHERE borrowers_num = %s AND item = %s AND date_in = %s;"
+        val = (picked_id, entered_item, "item-out",)
+        mycursor.execute(sql, val)
+
+        for valid_item in mycursor:
+            check_item_info.append(valid_item)
+
+        print("Valid Item Info")
+        print(check_item_info)
+
+        # -----------------------------------------------------------------------------------------------------
+
+        if check_item_info == []:
+
+            self.lineEditInIteminfo.clear()
+
+            check_item_info.clear()
+
+            QMessageBox.warning(self, "Error", "The Borrower and Equipment doesn't match in any Records. Please re-check the info entered.")
+            return
+
+        try:
+            equip_code = entered_item
+            split_code = equip_code.split("/", 1)
+
+            final_code = split_code[1]
+            print(final_code)
+        except:
+            self.lineEditOutIteminfo.clear()
+
+            check_borrower_info.clear()
+            check_item_info.clear()
+            check_item_qty.clear()
+
+            QMessageBox.warning(self, "Error", "Invalid Item Code.")
+            return
+
+        # -------------------------------------------------------------------------------------------------------------
+        check_item_qty.clear()
+
+        # MYSQL QUERY - APPEND TO PICKED QTY LIST
+        self.mydb = mysql.connector.connect(**DB_configuration)
+        mycursor = self.mydb.cursor()
+        sql = "SELECT quantity FROM items WHERE equipment = %s;"
+        val = (final_code,)
+        mycursor.execute(sql, val)
+
+        for valid_qty in mycursor:
+            check_item_qty.append(valid_qty[0])
+
+        print("Check Item Qty")
+        print(check_item_qty)
+
+        # -----------------------------------------------------------------------------------------------------
+
+        self.mydb = mysql.connector.connect(**DB_configuration)
+        mycursor = self.mydb.cursor()
+        sql = "UPDATE borrowers SET date_in = %s WHERE item = %s AND date_out = %s;"
+        val = (date_today, entered_item, check_item_info[0][1])
+        mycursor.execute(sql, val)
+
+        self.mydb.commit()
+
+        # -------------------------------------------------------------------------------------------------------------
+
+        old_qty = check_item_qty[0]
+        new_qty = old_qty + 1
+
+        self.mydb = mysql.connector.connect(**DB_configuration)
+        mycursor = self.mydb.cursor()
+        sql = "UPDATE items SET quantity = %s WHERE equipment = %s;"
+        val = (new_qty, final_code)
+        mycursor.execute(sql, val)
+
+        self.mydb.commit()
+
+        check_item_info.clear()
+        check_item_qty.clear()
+
+        self.comboInOutExistingborrowersinfo.setCurrentIndex(0)
+        self.lineEditInIteminfo.clear()
+
+        QMessageBox.information(self, "Success", "The Borrowers record has been updated, and the Equipment has been returned.")
 
 
 # OUT ITEM WINDOW -
@@ -1225,6 +1552,27 @@ class OutItemWindow(Ui_outitemWindow, QMainWindow):
 
         # -----------------------------------------------------------------------------------------------------
 
+        existing_borrowers_id.clear()
+        main.comboBoxMainRecords.clear()
+        main.comboBoxMainRecords.addItem("---ALL BORROWERS---")
+
+        # MYSQL QUERY - APPEND TO existing_borrowers_id LIST
+        self.mydb = mysql.connector.connect(**DB_configuration)
+        mycursor = self.mydb.cursor()
+        mycursor.execute("SELECT borrowers_num FROM borrowers;")
+
+        for borrower_id in mycursor:
+            existing_borrowers_id.append(borrower_id)
+
+        ids = list(dict.fromkeys(existing_borrowers_id))
+        for b_id in ids:
+            main.comboBoxMainRecords.addItems(b_id)
+
+        print("EXISTING BORROWERS ID")
+        print(existing_borrowers_id)
+
+        # -----------------------------------------------------------------------------------------------------
+
         out_item.close()
         main.show()
 
@@ -1291,14 +1639,16 @@ class OutItemWindow(Ui_outitemWindow, QMainWindow):
             existing_borrowers_id.append(borrower_id)
 
         print("EXISTING BORROWERS ID")
-        print(borrower_id)
+        print(existing_borrowers_id)
 
         # ------------------------------------------------------------
 
-        # MYSQL QUERY - APPEND TO out_item LIST
+        # MYSQL QUERY - APPEND TO PICKED QTY LIST
         self.mydb = mysql.connector.connect(**DB_configuration)
         mycursor = self.mydb.cursor()
-        mycursor.execute("SELECT item FROM borrowers;")
+        sql = "SELECT item FROM borrowers WHERE date_in = %s;"
+        val = ("item-out",)
+        mycursor.execute(sql, val)
 
         for out_item in mycursor:
             out_items.append(out_item)
@@ -1368,16 +1718,17 @@ class OutItemWindow(Ui_outitemWindow, QMainWindow):
         for borrower_id in mycursor:
             existing_borrowers_id.append(borrower_id[0])
 
-
         print("EXISTING BORROWERS ID")
         print(existing_borrowers_id)
 
         # ------------------------------------------------------------
 
-        # MYSQL QUERY - APPEND TO out_item LIST
+        # MYSQL QUERY - APPEND TO PICKED QTY LIST
         self.mydb = mysql.connector.connect(**DB_configuration)
         mycursor = self.mydb.cursor()
-        mycursor.execute("SELECT item FROM borrowers;")
+        sql = "SELECT item FROM borrowers WHERE date_in = %s;"
+        val = ("item-out",)
+        mycursor.execute(sql, val)
 
         for out_item in mycursor:
             out_items.append(out_item)
@@ -1409,7 +1760,6 @@ class OutItemWindow(Ui_outitemWindow, QMainWindow):
 
             for i in range(len(existing_borrowers_id)):
                 if existing_borrowers_id[i][0] == student_id:
-
                     self.spinBoxOutStudentNumber.setValue(0)
 
                     QMessageBox.warning(self, "Error", "The Borrower's ID Number already exist in the Records.")
@@ -1417,7 +1767,6 @@ class OutItemWindow(Ui_outitemWindow, QMainWindow):
 
             for i in range(len(out_items)):
                 if out_items[i][0] == item_code:
-
                     self.lineEditOutIteminfo.clear()
 
                     QMessageBox.warning(self, "Error",
@@ -1426,7 +1775,6 @@ class OutItemWindow(Ui_outitemWindow, QMainWindow):
 
             for i in range(len(existing_borrowers_info)):
                 if existing_borrowers_info[i][0] == full_name and existing_borrowers_info[i][1] == student_id:
-
                     self.radioButtonOutExistingborrower.setAutoExclusive(False)
                     self.radioButtonOutExistingborrower.setChecked(False)
                     self.radioButtonOutExistingborrower.setAutoExclusive(True)
@@ -1445,7 +1793,8 @@ class OutItemWindow(Ui_outitemWindow, QMainWindow):
                     self.comboBoxBorrowerName.clear()
                     self.lineEditOutIteminfo.clear()
 
-                    QMessageBox.warning(self, "Error", "The Borrower has already a record. Please choose exisiting borrower instead.")
+                    QMessageBox.warning(self, "Error",
+                                        "The Borrower has already a record. Please choose exisiting borrower instead.")
                     return
 
             try:
@@ -1609,7 +1958,6 @@ class OutItemWindow(Ui_outitemWindow, QMainWindow):
 
             for i in range(len(out_items)):
                 if out_items[i][0] == item_code:
-
                     self.lineEditOutIteminfo.clear()
 
                     QMessageBox.warning(self, "Error",
@@ -1801,6 +2149,27 @@ class QrCodeGeneratorWindow(Ui_qrcodegeneratorWindow, QMainWindow):
 
         # -----------------------------------------------------------------------------------------------------
 
+        existing_borrowers_id.clear()
+        main.comboBoxMainRecords.clear()
+        main.comboBoxMainRecords.addItem("---ALL BORROWERS---")
+
+        # MYSQL QUERY - APPEND TO existing_borrowers_id LIST
+        self.mydb = mysql.connector.connect(**DB_configuration)
+        mycursor = self.mydb.cursor()
+        mycursor.execute("SELECT borrowers_num FROM borrowers;")
+
+        for borrower_id in mycursor:
+            existing_borrowers_id.append(borrower_id)
+
+        ids = list(dict.fromkeys(existing_borrowers_id))
+        for b_id in ids:
+            main.comboBoxMainRecords.addItems(b_id)
+
+        print("EXISTING BORROWERS ID")
+        print(existing_borrowers_id)
+
+        # -----------------------------------------------------------------------------------------------------
+
         qr_code_generator.close()
         main.show()
 
@@ -1809,6 +2178,10 @@ class QrCodeGeneratorWindow(Ui_qrcodegeneratorWindow, QMainWindow):
         equipment_qty = self.spinBoxQrcodeEnd.value()
         number_start = self.spinBoxQrcodeStart.value()
         number_end = self.spinBoxQrcodeEnd.value() + 1
+
+        if self.comboBoxQrcodeItemCode.currentIndex() == 0:
+            QMessageBox.warning(self, "Error", "Please enter equipment you want to generate a qr code.")
+            return
 
         # QR code save path / file directory
         home = os.path.expanduser('~')
@@ -1833,9 +2206,11 @@ class QrCodeGeneratorWindow(Ui_qrcodegeneratorWindow, QMainWindow):
         print(equipment_qty)
 
         oldQty = pickedQty[0][0]
-        spinQty = equipment_qty
+        spinQtyEnd = equipment_qty
 
-        if oldQty < spinQty:
+
+        if oldQty < spinQtyEnd or oldQty < number_start:
+            self.spinBoxQrcodeStart.setValue(1)
             self.spinBoxQrcodeEnd.setValue(oldQty)
             QMessageBox.warning(self, "Alert", f"The Quantity you entered exceeds. {item_code} has {oldQty} quantity. "
                                                f"Please enter less than or "
@@ -1843,11 +2218,7 @@ class QrCodeGeneratorWindow(Ui_qrcodegeneratorWindow, QMainWindow):
             pickedQty.clear()
             return
 
-        if self.comboBoxQrcodeItemCode.currentIndex() == 0:
-            QMessageBox.warning(self, "Error", "Please enter equipment you want to generate a qr code.")
-            return
-
-        else:
+        if self.comboBoxQrcodeItemCode.currentIndex() != 0:
             check_main_location = os.path.join(location, f"TUP-C_UITC_QR_Code")
             if not os.path.exists(check_main_location):
                 os.makedirs(check_main_location)
@@ -1866,12 +2237,13 @@ class QrCodeGeneratorWindow(Ui_qrcodegeneratorWindow, QMainWindow):
                     self.spinBoxQrcodeEnd.setValue(1)
 
                     QMessageBox.information(self, "Success", "QR Code has been Successfully Generated.")
+                    return
 
                 else:
                     exist_sub_loc = os.path.join(check_main_location, f"{item_code}")
 
                     for Numbering in range(number_start, number_end):
-                        qr = qrcode.make(f"{Numbering} {item_code}")
+                        qr = qrcode.make(f"{Numbering}/{item_code}")
                         qr.save(os.path.join(exist_sub_loc, f"Number {Numbering} {item_code}.png"))
 
                     self.comboBoxQrcodeItemCode.setCurrentIndex(0)
@@ -1879,6 +2251,7 @@ class QrCodeGeneratorWindow(Ui_qrcodegeneratorWindow, QMainWindow):
                     self.spinBoxQrcodeEnd.setValue(1)
 
                     QMessageBox.information(self, "Success", "QR Code has been Successfully Generated.")
+                    return
 
             else:
                 check_sub_location = os.path.join(check_main_location, f"{item_code}")
@@ -1887,7 +2260,7 @@ class QrCodeGeneratorWindow(Ui_qrcodegeneratorWindow, QMainWindow):
                     os.makedirs(check_sub_location)
 
                     for Numbering in range(number_start, number_end):
-                        qr = qrcode.make(f"{Numbering} {item_code}")
+                        qr = qrcode.make(f"{Numbering}/{item_code}")
                         qr.save(os.path.join(check_sub_location, f"Number {Numbering} {item_code}.png"))
 
                     self.comboBoxQrcodeItemCode.setCurrentIndex(0)
@@ -1895,12 +2268,13 @@ class QrCodeGeneratorWindow(Ui_qrcodegeneratorWindow, QMainWindow):
                     self.spinBoxQrcodeEnd.setValue(1)
 
                     QMessageBox.information(self, "Success", "QR Code has been Successfully Generated.")
+                    return
 
                 else:
                     exist_sub_loc = os.path.join(check_main_location, f"{item_code}")
 
                     for Numbering in range(number_start, number_end):
-                        qr = qrcode.make(f"{Numbering} {item_code}")
+                        qr = qrcode.make(f"{Numbering}/{item_code}")
                         qr.save(os.path.join(exist_sub_loc, f"Number {Numbering} {item_code}.png"))
 
                     self.comboBoxQrcodeItemCode.setCurrentIndex(0)
@@ -1908,6 +2282,7 @@ class QrCodeGeneratorWindow(Ui_qrcodegeneratorWindow, QMainWindow):
                     self.spinBoxQrcodeEnd.setValue(1)
 
                     QMessageBox.information(self, "Success", "QR Code has been Successfully Generated.")
+                    return
 
 
 # ABOUT WINDOW - DONE & CHECKED
@@ -1974,6 +2349,27 @@ class AboutWindow(Ui_aboutWindow, QMainWindow):
             main.tableWidget_2.setItem(row, 4, QtWidgets.QTableWidgetItem(str(b_record[4])))
 
             row = row + 1
+
+        # -----------------------------------------------------------------------------------------------------
+
+        existing_borrowers_id.clear()
+        main.comboBoxMainRecords.clear()
+        main.comboBoxMainRecords.addItem("---ALL BORROWERS---")
+
+        # MYSQL QUERY - APPEND TO existing_borrowers_id LIST
+        self.mydb = mysql.connector.connect(**DB_configuration)
+        mycursor = self.mydb.cursor()
+        mycursor.execute("SELECT borrowers_num FROM borrowers;")
+
+        for borrower_id in mycursor:
+            existing_borrowers_id.append(borrower_id)
+
+        ids = list(dict.fromkeys(existing_borrowers_id))
+        for b_id in ids:
+            main.comboBoxMainRecords.addItems(b_id)
+
+        print("EXISTING BORROWERS ID")
+        print(existing_borrowers_id)
 
         # -----------------------------------------------------------------------------------------------------
 
