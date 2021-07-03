@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>qrcodegeneratorWindow</class>
+ <widget class="QMainWindow" name="qrcodegeneratorWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>482</width>
+    <height>611</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>482</width>
+    <height>611</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>482</width>
+    <height>611</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>TUP-C UITC INVENTORY SYSTEM</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>icons/INVENTORY.png</normaloff>icons/INVENTORY.png</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(223, 223, 223);</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="labelQrcodeCard">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>60</y>
+      <width>440</width>
+      <height>531</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(48, 48, 48);
+border-radius: 14px;</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBoxQrcodeItemCode">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>300</y>
+      <width>291</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-radius: 10px;
+color: rgb(255, 255, 255);
+background-color: rgb(65, 65, 65);</string>
+    </property>
+    <property name="editable">
+     <bool>false</bool>
+    </property>
+    <property name="currentText">
+     <string>Click here to Choose Item Code</string>
+    </property>
+    <item>
+     <property name="text">
+      <string>Click here to Choose Item Code</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLabel" name="labelQRcodeNumbering">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>360</y>
+      <width>141</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(48, 48, 48);
+color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string>Set QR Code Numbering</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelQrcodeTitle">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>210</y>
+      <width>311</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>20</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(48, 48, 48);
+color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string>QR CODE GENERATOR</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelQRcodeEnd">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>420</y>
+      <width>21</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(48, 48, 48);
+color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string>End</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelQRcodeStart">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>420</y>
+      <width>31</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(48, 48, 48);
+color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string>Start</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButtonQrcodeGenerate">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>490</y>
+      <width>341</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>21</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+      <strikeout>false</strikeout>
+      <kerning>false</kerning>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(195, 29, 57);
+color: rgb(255, 255, 255);
+</string>
+    </property>
+    <property name="text">
+     <string>GENERATE</string>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="spinBoxQrcodeStart">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>410</y>
+      <width>111</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>15</pointsize>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-radius: 10px;
+color: rgb(255, 255, 255);
+background-color: rgb(65, 65, 65);</string>
+    </property>
+    <property name="minimum">
+     <number>1</number>
+    </property>
+    <property name="maximum">
+     <number>300</number>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="spinBoxQrcodeEnd">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>410</y>
+      <width>111</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>15</pointsize>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-radius: 10px;
+color: rgb(255, 255, 255);
+background-color: rgb(65, 65, 65);</string>
+    </property>
+    <property name="minimum">
+     <number>1</number>
+    </property>
+    <property name="maximum">
+     <number>300</number>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelQrcodeLogo">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>80</y>
+      <width>111</width>
+      <height>111</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">image: url(:/icons/icons/qrcode.png);
+background-color: rgb(48, 48, 48);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelQRcodeEquipment">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>280</y>
+      <width>141</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(48, 48, 48);
+color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string>Item Code</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButtonQrcodeBack">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>20</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(195, 29, 57);
+color: rgb(255, 255, 255);
+</string>
+    </property>
+    <property name="text">
+     <string>BACK</string>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources>
+  <include location="icons.qrc"/>
+ </resources>
+ <connections/>
+</ui>

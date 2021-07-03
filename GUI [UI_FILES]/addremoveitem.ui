@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>addremoveitemWindow</class>
+ <widget class="QMainWindow" name="addremoveitemWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>501</width>
+    <height>671</height>
+   </rect>
+  </property>
+  <property name="font">
+   <font>
+    <pointsize>7</pointsize>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>TUP-C UITC INVENTORY SYSTEM</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>icons/INVENTORY.png</normaloff>icons/INVENTORY.png</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(223, 223, 223);</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QPushButton" name="pushButtonUpdateinventoryConfirm">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>530</y>
+      <width>361</width>
+      <height>70</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>21</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+      <strikeout>false</strikeout>
+      <kerning>false</kerning>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(195, 29, 57);
+color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string>CONFIRM</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelUpdateInventoryTitle">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>210</y>
+      <width>281</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>20</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(48, 48, 48);
+color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string>UPDATE INVENTORY</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelUpdateInventoryLogo">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>100</y>
+      <width>100</width>
+      <height>100</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">image: url(:/icons/icons/BOX.png);
+background-color: rgb(48, 48, 48);
+border-radius: 10px;</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pusButtonUpdateInventoryBack">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>20</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(195, 29, 57);
+color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string>BACK</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBoxUpdateInventoryEquipment">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>370</y>
+      <width>361</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);
+background-color: rgb(255, 255, 255);
+editable: rgb(65, 65, 65);</string>
+    </property>
+    <property name="editable">
+     <bool>false</bool>
+    </property>
+    <property name="currentText">
+     <string/>
+    </property>
+    <property name="maxVisibleItems">
+     <number>50</number>
+    </property>
+    <property name="insertPolicy">
+     <enum>QComboBox::InsertAtBottom</enum>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="spinBoxUpdateInventoryQty">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>460</y>
+      <width>361</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>15</pointsize>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+color: rgb(255, 255, 255);
+background-color: rgb(65, 65, 65);</string>
+    </property>
+    <property name="buttonSymbols">
+     <enum>QAbstractSpinBox::PlusMinus</enum>
+    </property>
+    <property name="minimum">
+     <number>1</number>
+    </property>
+    <property name="maximum">
+     <number>50</number>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelUpdateInventoryQty">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>430</y>
+      <width>161</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(48, 48, 48);
+color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string>Enter Quantity: (Max. Qty is 50)</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelUpdateInventoryCard">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>60</y>
+      <width>461</width>
+      <height>591</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(48, 48, 48);
+border-radius: 10px;</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="groupBoxUpdateInventoryChooseaction">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>270</y>
+      <width>361</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);
+background-color: rgb(65, 65, 65);</string>
+    </property>
+    <property name="title">
+     <string>Choose Action</string>
+    </property>
+    <widget class="QRadioButton" name="radioButtonUpdateInventoryAdditem">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>20</y>
+       <width>111</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(255, 255, 255);
+background-color: rgb(65, 65, 65);</string>
+     </property>
+     <property name="text">
+      <string>Add Item</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="radioButtonUpdateInventoryDeleteItem">
+     <property name="geometry">
+      <rect>
+       <x>250</x>
+       <y>20</y>
+       <width>91</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(255, 255, 255);
+background-color: rgb(65, 65, 65);</string>
+     </property>
+     <property name="text">
+      <string>Delete Item</string>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="radioButtonUpdateInventoryUpdateItem">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>20</y>
+       <width>111</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(255, 255, 255);
+background-color: rgb(65, 65, 65);</string>
+     </property>
+     <property name="text">
+      <string>Update Item</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QLabel" name="labelUpdateInventoryEquipment">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>350</y>
+      <width>61</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(48, 48, 48);
+color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="text">
+     <string>Equipment:</string>
+    </property>
+   </widget>
+   <zorder>labelUpdateInventoryCard</zorder>
+   <zorder>pushButtonUpdateinventoryConfirm</zorder>
+   <zorder>labelUpdateInventoryTitle</zorder>
+   <zorder>labelUpdateInventoryLogo</zorder>
+   <zorder>pusButtonUpdateInventoryBack</zorder>
+   <zorder>comboBoxUpdateInventoryEquipment</zorder>
+   <zorder>spinBoxUpdateInventoryQty</zorder>
+   <zorder>labelUpdateInventoryQty</zorder>
+   <zorder>groupBoxUpdateInventoryChooseaction</zorder>
+   <zorder>labelUpdateInventoryEquipment</zorder>
+  </widget>
+ </widget>
+ <tabstops>
+  <tabstop>comboBoxUpdateInventoryEquipment</tabstop>
+  <tabstop>spinBoxUpdateInventoryQty</tabstop>
+  <tabstop>pushButtonUpdateinventoryConfirm</tabstop>
+  <tabstop>pusButtonUpdateInventoryBack</tabstop>
+ </tabstops>
+ <resources>
+  <include location="icons.qrc"/>
+ </resources>
+ <connections/>
+</ui>

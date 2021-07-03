@@ -1,0 +1,25 @@
+<RCC>
+  <qresource prefix="icons">
+    <file>icons/mysql.png</file>
+    <file>icons/pycharm.png</file>
+    <file>icons/python.png</file>
+    <file>icons/qt.png</file>
+    <file>icons/ACCOUNT SETTINGS.png</file>
+    <file>icons/Bataller.jpg</file>
+    <file>icons/About.png</file>
+    <file>icons/Salvador.jpg</file>
+    <file>icons/Help.png</file>
+    <file>icons/BOX.png</file>
+    <file>icons/print.png</file>
+    <file>icons/qrcode.png</file>
+    <file>icons/in.png</file>
+    <file>icons/out.png</file>
+    <file>icons/ACCOUNT.png</file>
+    <file>icons/INVENTORY.png</file>
+    <file>icons/in.png</file>
+    <file>icons/out.png</file>
+    <file>icons/newuser.png</file>
+    <file>icons/user.png</file>
+    <file>icons/qrcode.png</file>
+  </qresource>
+</RCC>

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>indexWindow</class>
+ <widget class="QMainWindow" name="indexWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>743</width>
+    <height>745</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>743</width>
+    <height>745</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>743</width>
+    <height>745</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>TUP-C UITC INVENTORY SYSTEM</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>icons/INVENTORY.png</normaloff>icons/INVENTORY.png</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(223, 223, 223);</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QPushButton" name="pushButtonIndexLogin">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>600</y>
+      <width>600</width>
+      <height>60</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Verdana</family>
+      <pointsize>20</pointsize>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(195, 29, 57);
+color: rgb(255, 255, 255);
+</string>
+    </property>
+    <property name="text">
+     <string>LOG IN</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="indexCard">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>20</y>
+      <width>700</width>
+      <height>700</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(48, 48, 48);
+border-radius: 14px;</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="indexLogo">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>90</y>
+      <width>135</width>
+      <height>135</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);
+image: url(:/icons/icons/INVENTORY.png);
+background-color: rgb(48, 48, 48);</string>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButtonIndexSignup">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>510</y>
+      <width>600</width>
+      <height>60</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Verdana</family>
+      <pointsize>20</pointsize>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);
+background-color: rgb(37, 37, 37);
+
+</string>
+    </property>
+    <property name="text">
+     <string>SIGN UP</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="indexTitle">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>230</y>
+      <width>391</width>
+      <height>121</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>MS Shell Dlg 2</family>
+      <pointsize>28</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);
+background-color: rgb(48, 48, 48);</string>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;TUP-C UITC&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;INVENTORY SYSTEM&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <zorder>indexCard</zorder>
+   <zorder>pushButtonIndexLogin</zorder>
+   <zorder>indexLogo</zorder>
+   <zorder>pushButtonIndexSignup</zorder>
+   <zorder>indexTitle</zorder>
+  </widget>
+ </widget>
+ <resources>
+  <include location="icons.qrc"/>
+ </resources>
+ <connections/>
+</ui>
