@@ -128,7 +128,7 @@ class Ui_initemWindow(object):
 
     def retranslateUi(self, initemWindow):
         _translate = QtCore.QCoreApplication.translate
-        initemWindow.setWindowTitle(_translate("initemWindow", "TUP-C UITC INVENTORY SYSTEM"))
+        initemWindow.setWindowTitle(_translate("initemWindow", "In Item - TUP-C UITC INVENTORY SYSTEM"))
         self.pushButtonInSubmit.setText(_translate("initemWindow", "SUBMIT"))
         self.labelInTitle.setText(_translate("initemWindow", "IN ITEM"))
         self.labelInExistingborrowerinfo.setText(_translate("initemWindow", "Existing Borrowers Information"))

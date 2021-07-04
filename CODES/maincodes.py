@@ -1,3 +1,6 @@
+# ----------------------------------------------------------------------------------------------------------------------
+
+# IMPORT GUI
 from GUI.index import *
 from GUI.login import *
 from GUI.signup import *
@@ -10,32 +13,29 @@ from GUI.qrcodegenerator import *
 from GUI.about import *
 from GUI.icons import *
 
+# IMPORT CREATE DATABASE AND TABLE FUNCTION
+from database import *
+
+# IMPORT VALIDATION FUNCTIONS
+from validation import *
+
+# IMPORT PACKAGES
 from PyQt5.QtWidgets import *
 import webbrowser
 from PIL import Image
 import qrcode
 import os.path
-
 import sys
-import re
-
-# CREATE DATABASE AND TABLE FUNCTION
-from database import *
-
-# VALIDATION FUNCTIONS
-from validation import *
-
 from datetime import datetime
 
-# Textual month, day and year
-today = datetime.today()
-date_today = today.strftime("%B %d, %Y") + " " + datetime.today().strftime("%I:%M %p")
-print("Date Today =", date_today)
+# ----------------------------------------------------------------------------------------------------------------------
 
 # MYSQL DATABASE CONFIGURATION
 DB_configuration = {"host": "localhost", "user": "root", "password": "admin", "database": "inventory_system_tupc_uitc"}
 
-# CREATE ARRAY - DATA COMES FROM MYSQL DB
+# ----------------------------------------------------------------------------------------------------------------------
+
+# LISTS SETUP
 main_equipments = []
 main_records = []
 
@@ -57,8 +57,9 @@ check_item_qty = []
 
 out_items = []
 
+# ----------------------------------------------------------------------------------------------------------------------
 
-# INDEX WINDOW - CHECKED & DONE
+# INDEX WINDOW - CHECKED & DONE & FINALIZED
 class IndexWindow(Ui_indexWindow, QMainWindow):
 
     def __init__(self):
@@ -66,7 +67,7 @@ class IndexWindow(Ui_indexWindow, QMainWindow):
         super(IndexWindow, self).__init__()
         self.setupUi(self)
 
-        # WHEN BUTTON IS CLICKED THIS WILL TRIGGER THE FUNCTION
+        # WHEN BUTTON IS CLICKED, IT WILL RUN THE FUNCTION
         self.pushButtonIndexLogin.clicked.connect(self.login)
         self.pushButtonIndexSignup.clicked.connect(self.signup)
 
@@ -112,6 +113,7 @@ class IndexWindow(Ui_indexWindow, QMainWindow):
         signup.show()
         index.close()
 
+# ----------------------------------------------------------------------------------------------------------------------
 
 # LOGIN WINDOW - CHECKED & DONE
 class LoginWindow(Ui_loginWindow, QMainWindow):
@@ -120,7 +122,7 @@ class LoginWindow(Ui_loginWindow, QMainWindow):
         super(LoginWindow, self).__init__()
         self.setupUi(self)
 
-        # WHEN BUTTON IS CLICKED THIS WILL TRIGGER THE FUNCTION
+        # WHEN BUTTON IS CLICKED, IT WILL RUN THE FUNCTION
         self.pushButtonLogin.clicked.connect(self.login_account)
         self.pushButtonLoginSignup.clicked.connect(self.signup)
 
@@ -136,13 +138,15 @@ class LoginWindow(Ui_loginWindow, QMainWindow):
             return
 
         for x in range(len(accounts)):
+
             # LOG IN FOR ADMINISTRATOR ACCOUNT
             if accounts[x][0] == login_username and accounts[x][1] == login_password and accounts[x][
                 2] == "administrator":
 
-                # QMessageBox.information(self, "Success","WELCOME.")
                 self.lineEditLoginUsername.clear()
                 self.lineEditLoginPassword.clear()
+
+                # ------------------------------------------------------------------------------------------------------
 
                 # MYSQL QUERY - GET ADMINS ACCOUNT DETAILS
                 self.mydb = mysql.connector.connect(**DB_configuration)
@@ -165,7 +169,7 @@ class LoginWindow(Ui_loginWindow, QMainWindow):
                     main.MainSystemUserLbl.setText(full_name)
                     main.MainSystemUserAccountLbl.setText("Administrator")
 
-                # -----------------------------------------------------------------------------------------------------
+                # ------------------------------------------------------------------------------------------------------
 
                 main_equipments.clear()
 
@@ -196,7 +200,7 @@ class LoginWindow(Ui_loginWindow, QMainWindow):
                 # MYSQL QUERY - APPEND TO RECORDS LIST
                 self.mydb = mysql.connector.connect(**DB_configuration)
                 mycursor = self.mydb.cursor()
-                mycursor.execute("SELECT name, borrowers_num, item, date_out, date_in  FROM borrowers;")
+                mycursor.execute("SELECT name, borrowers_num, item, date_out, date_in  FROM borrowers ORDER BY id DESC;")
 
                 for record in mycursor:
                     main_records.append(record)
@@ -225,7 +229,7 @@ class LoginWindow(Ui_loginWindow, QMainWindow):
                 # MYSQL QUERY - APPEND TO existing_borrowers_id LIST
                 self.mydb = mysql.connector.connect(**DB_configuration)
                 mycursor = self.mydb.cursor()
-                mycursor.execute("SELECT borrowers_num FROM borrowers;")
+                mycursor.execute("SELECT borrowers_num FROM borrowers ORDER BY borrowers_num;")
 
                 for borrower_id in mycursor:
                     existing_borrowers_id.append(borrower_id)
@@ -300,7 +304,7 @@ class LoginWindow(Ui_loginWindow, QMainWindow):
                 # MYSQL QUERY - APPEND TO RECORDS LIST
                 self.mydb = mysql.connector.connect(**DB_configuration)
                 mycursor = self.mydb.cursor()
-                mycursor.execute("SELECT name, borrowers_num, item, date_out, date_in  FROM borrowers;")
+                mycursor.execute("SELECT name, borrowers_num, item, date_out, date_in  FROM borrowers ORDER BY id DESC;")
 
                 for record in mycursor:
                     main_records.append(record)
@@ -329,7 +333,7 @@ class LoginWindow(Ui_loginWindow, QMainWindow):
                 # MYSQL QUERY - APPEND TO existing_borrowers_id LIST
                 self.mydb = mysql.connector.connect(**DB_configuration)
                 mycursor = self.mydb.cursor()
-                mycursor.execute("SELECT borrowers_num FROM borrowers;")
+                mycursor.execute("SELECT borrowers_num FROM borrowers ORDER BY borrowers_num;")
 
                 for borrower_id in mycursor:
                     existing_borrowers_id.append(borrower_id)
@@ -372,6 +376,7 @@ class LoginWindow(Ui_loginWindow, QMainWindow):
         signup.show()
         login.close()
 
+# ----------------------------------------------------------------------------------------------------------------------
 
 # SIGNUP WINDOW - CHECKED & DONE
 class SignupWindow(Ui_signupWindow, QMainWindow):
@@ -404,7 +409,7 @@ class SignupWindow(Ui_signupWindow, QMainWindow):
         login.show()
         signup.close()
 
-    # SIGN UP ACCOUNT AND SAVE TO MYSQL PROCESS
+    # SIGN UP ACCOUNT AND SAVE TO DATABASE
     def signup_account(self):
 
         first_name = self.lineEditSignupFirstname.text()
@@ -506,8 +511,9 @@ class SignupWindow(Ui_signupWindow, QMainWindow):
             else:
                 QMessageBox.warning(self, "Error", "MYSQL ERROR.")
 
+# ----------------------------------------------------------------------------------------------------------------------
 
-# MAIN WINDOW - NEED TO FIX - PAUSE
+# MAIN WINDOW - CHECKED & DONE
 class MainWindow(Ui_MainSystemWindow, QMainWindow):
 
     def __init__(self):
@@ -524,6 +530,7 @@ class MainWindow(Ui_MainSystemWindow, QMainWindow):
         self.MainSystemQrCodeGeneratorPushButton.clicked.connect(self.qr_code_generator)
         self.MainSystemAboutPushButton.clicked.connect(self.about)
 
+    # SHOW BORROWERS RECORD
     def show_records(self):
         picked_id = self.comboBoxMainRecords.currentText()
 
@@ -535,7 +542,7 @@ class MainWindow(Ui_MainSystemWindow, QMainWindow):
             # MYSQL QUERY - APPEND TO RECORDS LIST
             self.mydb = mysql.connector.connect(**DB_configuration)
             mycursor = self.mydb.cursor()
-            mycursor.execute("SELECT name, borrowers_num, item, date_out, date_in  FROM borrowers;")
+            mycursor.execute("SELECT name, borrowers_num, item, date_out, date_in  FROM borrowers ORDER BY id DESC;")
 
             for record in mycursor:
                 main_records.append(record)
@@ -561,7 +568,7 @@ class MainWindow(Ui_MainSystemWindow, QMainWindow):
 
         self.mydb = mysql.connector.connect(**DB_configuration)
         mycursor = self.mydb.cursor()
-        sql = "SELECT name, borrowers_num, item, date_out, date_in FROM borrowers WHERE borrowers_num = %s;"
+        sql = "SELECT name, borrowers_num, item, date_out, date_in FROM borrowers WHERE borrowers_num = %s ORDER BY id DESC;"
         val = (picked_id,)
         mycursor.execute(sql, val)
 
@@ -583,7 +590,6 @@ class MainWindow(Ui_MainSystemWindow, QMainWindow):
 
             row = row + 1
         return
-
 
     # LOGOUT PROCESS
     def logout(self):
@@ -737,6 +743,7 @@ class MainWindow(Ui_MainSystemWindow, QMainWindow):
         main.close()
         about.show()
 
+# ----------------------------------------------------------------------------------------------------------------------
 
 # ACCOUNT SETTINGS WINDOW - CHECKED & DONE
 class AccountSettingsWindow(Ui_AccountSettingsWindow, QMainWindow):
@@ -780,7 +787,7 @@ class AccountSettingsWindow(Ui_AccountSettingsWindow, QMainWindow):
         # MYSQL QUERY - APPEND TO RECORDS LIST
         self.mydb = mysql.connector.connect(**DB_configuration)
         mycursor = self.mydb.cursor()
-        mycursor.execute("SELECT name, borrowers_num, item, date_out, date_in  FROM borrowers;")
+        mycursor.execute("SELECT name, borrowers_num, item, date_out, date_in  FROM borrowers ORDER BY id DESC;")
 
         for record in mycursor:
             main_records.append(record)
@@ -809,7 +816,7 @@ class AccountSettingsWindow(Ui_AccountSettingsWindow, QMainWindow):
         # MYSQL QUERY - APPEND TO existing_borrowers_id LIST
         self.mydb = mysql.connector.connect(**DB_configuration)
         mycursor = self.mydb.cursor()
-        mycursor.execute("SELECT borrowers_num FROM borrowers;")
+        mycursor.execute("SELECT borrowers_num FROM borrowers ORDER BY borrowers_num;")
 
         for borrower_id in mycursor:
             existing_borrowers_id.append(borrower_id)
@@ -882,6 +889,7 @@ class AccountSettingsWindow(Ui_AccountSettingsWindow, QMainWindow):
                                     "The old password you entered is incorrect.")
                 return
 
+# ----------------------------------------------------------------------------------------------------------------------
 
 # ADD / REMOVE ITEM WINDOW - DONE - NEED TO CHECK
 class AddRemoveItemWindow(Ui_addremoveitemWindow, QMainWindow):
@@ -930,7 +938,7 @@ class AddRemoveItemWindow(Ui_addremoveitemWindow, QMainWindow):
         # MYSQL QUERY - APPEND TO RECORDS LIST
         self.mydb = mysql.connector.connect(**DB_configuration)
         mycursor = self.mydb.cursor()
-        mycursor.execute("SELECT name, borrowers_num, item, date_out, date_in  FROM borrowers;")
+        mycursor.execute("SELECT name, borrowers_num, item, date_out, date_in  FROM borrowers ORDER BY id DESC;")
 
         for record in mycursor:
             main_records.append(record)
@@ -959,7 +967,7 @@ class AddRemoveItemWindow(Ui_addremoveitemWindow, QMainWindow):
         # MYSQL QUERY - APPEND TO existing_borrowers_id LIST
         self.mydb = mysql.connector.connect(**DB_configuration)
         mycursor = self.mydb.cursor()
-        mycursor.execute("SELECT borrowers_num FROM borrowers;")
+        mycursor.execute("SELECT borrowers_num FROM borrowers ORDER BY borrowers_num;")
 
         for borrower_id in mycursor:
             existing_borrowers_id.append(borrower_id)
@@ -1294,6 +1302,7 @@ class AddRemoveItemWindow(Ui_addremoveitemWindow, QMainWindow):
 
             QMessageBox.information(self, "Updated", "The Item Quantity has been reduced.")
 
+# ----------------------------------------------------------------------------------------------------------------------
 
 # IN ITEM WINDOW -
 class InItemWindow(Ui_initemWindow, QMainWindow):
@@ -1339,7 +1348,7 @@ class InItemWindow(Ui_initemWindow, QMainWindow):
         # MYSQL QUERY - APPEND TO RECORDS LIST
         self.mydb = mysql.connector.connect(**DB_configuration)
         mycursor = self.mydb.cursor()
-        mycursor.execute("SELECT name, borrowers_num, item, date_out, date_in  FROM borrowers;")
+        mycursor.execute("SELECT name, borrowers_num, item, date_out, date_in  FROM borrowers ORDER BY id DESC;")
 
         for record in mycursor:
             main_records.append(record)
@@ -1368,7 +1377,7 @@ class InItemWindow(Ui_initemWindow, QMainWindow):
         # MYSQL QUERY - APPEND TO existing_borrowers_id LIST
         self.mydb = mysql.connector.connect(**DB_configuration)
         mycursor = self.mydb.cursor()
-        mycursor.execute("SELECT borrowers_num FROM borrowers;")
+        mycursor.execute("SELECT borrowers_num FROM borrowers ORDER BY borrowers_num;")
 
         for borrower_id in mycursor:
             existing_borrowers_id.append(borrower_id)
@@ -1386,6 +1395,12 @@ class InItemWindow(Ui_initemWindow, QMainWindow):
         main.show()
 
     def record_db(self):
+
+        # GETTING DATE TODAY (MONTH, DAY, YEAR, TIME, AM/PM)
+        today = datetime.today()
+        date_today = today.strftime("%B %d, %Y") + " " + datetime.today().strftime("%I:%M %p")
+        print("Date Today =", date_today)
+
         picked_id = self.comboInOutExistingborrowersinfo.currentText()
         entered_item = self.lineEditInIteminfo.text()
 
@@ -1482,6 +1497,7 @@ class InItemWindow(Ui_initemWindow, QMainWindow):
 
         QMessageBox.information(self, "Success", "The Borrowers record has been updated, and the Equipment has been returned.")
 
+# ----------------------------------------------------------------------------------------------------------------------
 
 # OUT ITEM WINDOW -
 class OutItemWindow(Ui_outitemWindow, QMainWindow):
@@ -1530,7 +1546,7 @@ class OutItemWindow(Ui_outitemWindow, QMainWindow):
         # MYSQL QUERY - APPEND TO RECORDS LIST
         self.mydb = mysql.connector.connect(**DB_configuration)
         mycursor = self.mydb.cursor()
-        mycursor.execute("SELECT name, borrowers_num, item, date_out, date_in  FROM borrowers;")
+        mycursor.execute("SELECT name, borrowers_num, item, date_out, date_in  FROM borrowers ORDER BY id DESC;")
 
         for record in mycursor:
             main_records.append(record)
@@ -1559,7 +1575,7 @@ class OutItemWindow(Ui_outitemWindow, QMainWindow):
         # MYSQL QUERY - APPEND TO existing_borrowers_id LIST
         self.mydb = mysql.connector.connect(**DB_configuration)
         mycursor = self.mydb.cursor()
-        mycursor.execute("SELECT borrowers_num FROM borrowers;")
+        mycursor.execute("SELECT borrowers_num FROM borrowers ORDER BY borrowers_num;")
 
         for borrower_id in mycursor:
             existing_borrowers_id.append(borrower_id)
@@ -1737,6 +1753,11 @@ class OutItemWindow(Ui_outitemWindow, QMainWindow):
         print(out_items)
 
     def record_db(self):
+
+        # GETTING DATE TODAY (MONTH, DAY, YEAR, TIME, AM/PM)
+        today = datetime.today()
+        date_today = today.strftime("%B %d, %Y") + " " + datetime.today().strftime("%I:%M %p")
+        print("Date Today =", date_today)
 
         full_name = self.comboBoxBorrowerName.currentText()
         id_num = self.spinBoxOutStudentNumber.value()
@@ -2082,6 +2103,7 @@ class OutItemWindow(Ui_outitemWindow, QMainWindow):
                                         "The Borrowers info has been recorded, and the Equipment has been out.")
                 return
 
+# ----------------------------------------------------------------------------------------------------------------------
 
 # QR CODE GENERATOR WINDOW - DONE - NEED TO CHECK
 class QrCodeGeneratorWindow(Ui_qrcodegeneratorWindow, QMainWindow):
@@ -2127,7 +2149,7 @@ class QrCodeGeneratorWindow(Ui_qrcodegeneratorWindow, QMainWindow):
         # MYSQL QUERY - APPEND TO RECORDS LIST
         self.mydb = mysql.connector.connect(**DB_configuration)
         mycursor = self.mydb.cursor()
-        mycursor.execute("SELECT name, borrowers_num, item, date_out, date_in  FROM borrowers;")
+        mycursor.execute("SELECT name, borrowers_num, item, date_out, date_in  FROM borrowers ORDER BY id DESC;")
 
         for record in mycursor:
             main_records.append(record)
@@ -2156,7 +2178,7 @@ class QrCodeGeneratorWindow(Ui_qrcodegeneratorWindow, QMainWindow):
         # MYSQL QUERY - APPEND TO existing_borrowers_id LIST
         self.mydb = mysql.connector.connect(**DB_configuration)
         mycursor = self.mydb.cursor()
-        mycursor.execute("SELECT borrowers_num FROM borrowers;")
+        mycursor.execute("SELECT borrowers_num FROM borrowers ORDER BY borrowers_num;")
 
         for borrower_id in mycursor:
             existing_borrowers_id.append(borrower_id)
@@ -2284,6 +2306,7 @@ class QrCodeGeneratorWindow(Ui_qrcodegeneratorWindow, QMainWindow):
                     QMessageBox.information(self, "Success", "QR Code has been Successfully Generated.")
                     return
 
+# ----------------------------------------------------------------------------------------------------------------------
 
 # ABOUT WINDOW - DONE & CHECKED
 class AboutWindow(Ui_aboutWindow, QMainWindow):
@@ -2330,7 +2353,7 @@ class AboutWindow(Ui_aboutWindow, QMainWindow):
         # MYSQL QUERY - APPEND TO RECORDS LIST
         self.mydb = mysql.connector.connect(**DB_configuration)
         mycursor = self.mydb.cursor()
-        mycursor.execute("SELECT name, borrowers_num, item, date_out, date_in  FROM borrowers;")
+        mycursor.execute("SELECT name, borrowers_num, item, date_out, date_in  FROM borrowers ORDER BY id DESC;")
 
         for record in mycursor:
             main_records.append(record)
@@ -2359,7 +2382,7 @@ class AboutWindow(Ui_aboutWindow, QMainWindow):
         # MYSQL QUERY - APPEND TO existing_borrowers_id LIST
         self.mydb = mysql.connector.connect(**DB_configuration)
         mycursor = self.mydb.cursor()
-        mycursor.execute("SELECT borrowers_num FROM borrowers;")
+        mycursor.execute("SELECT borrowers_num FROM borrowers ORDER BY borrowers_num;")
 
         for borrower_id in mycursor:
             existing_borrowers_id.append(borrower_id)
@@ -2376,6 +2399,7 @@ class AboutWindow(Ui_aboutWindow, QMainWindow):
         about.close()
         main.show()
 
+# ----------------------------------------------------------------------------------------------------------------------
 
 # PYQT5
 if __name__ == "__main__":

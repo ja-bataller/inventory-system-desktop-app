@@ -145,7 +145,7 @@ class Ui_AccountSettingsWindow(object):
 
     def retranslateUi(self, AccountSettingsWindow):
         _translate = QtCore.QCoreApplication.translate
-        AccountSettingsWindow.setWindowTitle(_translate("AccountSettingsWindow", "TUP-C UITC INVENTORY SYSTEM"))
+        AccountSettingsWindow.setWindowTitle(_translate("AccountSettingsWindow", "Account Settings - TUP-C UITC INVENTORY SYSTEM"))
         self.AccountSettingsLbl.setText(_translate("AccountSettingsWindow", "ACCOUNT SETTINGS"))
         self.AccountSettingsOldPasswordLineEdit.setPlaceholderText(_translate("AccountSettingsWindow", "  Enter Old Password here"))
         self.AccountSettingsChangePasswordLbl.setText(_translate("AccountSettingsWindow", "Change Password"))

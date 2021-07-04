@@ -270,7 +270,7 @@ class Ui_aboutWindow(object):
 
     def retranslateUi(self, aboutWindow):
         _translate = QtCore.QCoreApplication.translate
-        aboutWindow.setWindowTitle(_translate("aboutWindow", "TUP-C UITC INVENTORY SYSTEM"))
+        aboutWindow.setWindowTitle(_translate("aboutWindow", "About - TUP-C UITC INVENTORY SYSTEM"))
         self.AboutBackPushButton.setText(_translate("aboutWindow", "BACK"))
         self.AboutOnlineCVPushButton.setText(_translate("aboutWindow", "ONLINE CV"))
         self.AboutJABBName.setText(_translate("aboutWindow", "Bataller, John Anthony B."))

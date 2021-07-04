@@ -101,7 +101,7 @@ class Ui_MainSystemWindow(object):
 "color: rgb(255, 255, 255);")
         self.MainSystemAccountSettingsLbl.setObjectName("MainSystemAccountSettingsLbl")
         self.MainSystemItemRecordsLbl = QtWidgets.QLabel(self.centralwidget)
-        self.MainSystemItemRecordsLbl.setGeometry(QtCore.QRect(170, 200, 171, 51))
+        self.MainSystemItemRecordsLbl.setGeometry(QtCore.QRect(190, 200, 171, 51))
         font = QtGui.QFont()
         font.setPointSize(18)
         self.MainSystemItemRecordsLbl.setFont(font)
@@ -141,7 +141,7 @@ class Ui_MainSystemWindow(object):
 "background-color: rgb(48, 48, 48);")
         self.MainSystemHelpLbl.setObjectName("MainSystemHelpLbl")
         self.tableWidget = QtWidgets.QTableWidget(self.centralwidget)
-        self.tableWidget.setGeometry(QtCore.QRect(50, 280, 451, 631))
+        self.tableWidget.setGeometry(QtCore.QRect(40, 280, 491, 631))
         self.tableWidget.viewport().setProperty("cursor", QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.tableWidget.setAutoFillBackground(True)
         self.tableWidget.setStyleSheet("background-color: rgb(255, 255, 255);\n"
@@ -172,7 +172,7 @@ class Ui_MainSystemWindow(object):
 "background-color: rgb(48, 48, 48);")
         self.MainSystemAboutLbl.setObjectName("MainSystemAboutLbl")
         self.tableWidget_2 = QtWidgets.QTableWidget(self.centralwidget)
-        self.tableWidget_2.setGeometry(QtCore.QRect(570, 280, 861, 631))
+        self.tableWidget_2.setGeometry(QtCore.QRect(580, 280, 861, 631))
         self.tableWidget_2.viewport().setProperty("cursor", QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.tableWidget_2.setAutoFillBackground(True)
         self.tableWidget_2.setStyleSheet("background-color: rgb(255, 255, 255);\n"
@@ -200,16 +200,17 @@ class Ui_MainSystemWindow(object):
         self.MainSystemBG2Lbl_4.setText("")
         self.MainSystemBG2Lbl_4.setObjectName("MainSystemBG2Lbl_4")
         self.comboBoxMainRecords = QtWidgets.QComboBox(self.centralwidget)
-        self.comboBoxMainRecords.setGeometry(QtCore.QRect(650, 220, 781, 41))
+        self.comboBoxMainRecords.setGeometry(QtCore.QRect(660, 220, 781, 41))
         self.comboBoxMainRecords.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.comboBoxMainRecords.setStyleSheet("border-radius: 10px;\n"
+        self.comboBoxMainRecords.setStyleSheet("\n"
 "color: rgb(255, 255, 255);\n"
 "background-color: rgb(65, 65, 65);")
         self.comboBoxMainRecords.setEditable(False)
+        self.comboBoxMainRecords.setInsertPolicy(QtWidgets.QComboBox.InsertAtTop)
         self.comboBoxMainRecords.setObjectName("comboBoxMainRecords")
         self.comboBoxMainRecords.addItem("")
         self.pushButtonMainShowRecords = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButtonMainShowRecords.setGeometry(QtCore.QRect(570, 230, 71, 31))
+        self.pushButtonMainShowRecords.setGeometry(QtCore.QRect(580, 230, 71, 31))
         self.pushButtonMainShowRecords.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.pushButtonMainShowRecords.setStyleSheet("background-color: rgb(65, 65, 65);\n"
 "color: rgb(255, 255, 255);")
@@ -360,8 +361,8 @@ class Ui_MainSystemWindow(object):
         item.setText(_translate("MainSystemWindow", "Date Out"))
         item = self.tableWidget_2.horizontalHeaderItem(4)
         item.setText(_translate("MainSystemWindow", "Date In"))
-        self.comboBoxMainRecords.setCurrentText(_translate("MainSystemWindow", "Click here to show borrower\'s"))
-        self.comboBoxMainRecords.setItemText(0, _translate("MainSystemWindow", "Click here to show borrower\'s"))
+        self.comboBoxMainRecords.setCurrentText(_translate("MainSystemWindow", "--- SHOW ALL ---"))
+        self.comboBoxMainRecords.setItemText(0, _translate("MainSystemWindow", "--- SHOW ALL ---"))
         self.pushButtonMainShowRecords.setText(_translate("MainSystemWindow", "Show"))
         self.MainSystemUserAccountLbl.setText(_translate("MainSystemWindow", "<html><head/><body><p><br/></p></body></html>"))
         self.MainSystemItemInLbl.setText(_translate("MainSystemWindow", "ITEM IN"))

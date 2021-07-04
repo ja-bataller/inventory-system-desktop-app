@@ -135,7 +135,7 @@ class Ui_loginWindow(object):
 
     def retranslateUi(self, loginWindow):
         _translate = QtCore.QCoreApplication.translate
-        loginWindow.setWindowTitle(_translate("loginWindow", "TUP-C UITC INVENTORY SYSTEM"))
+        loginWindow.setWindowTitle(_translate("loginWindow", "Login - TUP-C UITC INVENTORY SYSTEM"))
         self.loginTitle.setText(_translate("loginWindow", "<html><head/><body><p align=\"center\">LOG IN</p></body></html>"))
         self.pushButtonLogin.setText(_translate("loginWindow", "LOG IN"))
         self.labelLoginUsername.setText(_translate("loginWindow", "<html><head/><body><p><span style=\" font-size:10pt;\">Username</span></p></body></html>"))

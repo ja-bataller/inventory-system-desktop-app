@@ -162,7 +162,7 @@ class Ui_outitemWindow(object):
 
     def retranslateUi(self, outitemWindow):
         _translate = QtCore.QCoreApplication.translate
-        outitemWindow.setWindowTitle(_translate("outitemWindow", "QR CODE INVENTORY SYSTEM"))
+        outitemWindow.setWindowTitle(_translate("outitemWindow", "Out Item - TUP-C UITC INVENTORY SYSTEM"))
         self.labelOutTitle.setText(_translate("outitemWindow", "OUT ITEM"))
         self.pushButtonOutBack.setText(_translate("outitemWindow", "BACK"))
         self.pushButtonOutSubmit.setText(_translate("outitemWindow", "CONFIRM"))

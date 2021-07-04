@@ -83,7 +83,7 @@ class Ui_indexWindow(object):
 
     def retranslateUi(self, indexWindow):
         _translate = QtCore.QCoreApplication.translate
-        indexWindow.setWindowTitle(_translate("indexWindow", "TUP-C UITC INVENTORY SYSTEM"))
+        indexWindow.setWindowTitle(_translate("indexWindow", "Welcome - TUP-C UITC INVENTORY SYSTEM"))
         self.pushButtonIndexLogin.setText(_translate("indexWindow", "LOG IN"))
         self.indexLogo.setText(_translate("indexWindow", "<html><head/><body><p align=\"center\"><br/></p></body></html>"))
         self.pushButtonIndexSignup.setText(_translate("indexWindow", "SIGN UP"))

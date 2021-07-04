@@ -274,7 +274,7 @@ class Ui_signupWindow(object):
 
     def retranslateUi(self, signupWindow):
         _translate = QtCore.QCoreApplication.translate
-        signupWindow.setWindowTitle(_translate("signupWindow", "TUP-C UITC INVENTORY SYSTEM"))
+        signupWindow.setWindowTitle(_translate("signupWindow", "Sign Up - TUP-C UITC INVENTORY SYSTEM"))
         self.pushButtonSignupLogin.setText(_translate("signupWindow", "LOG IN"))
         self.labelSignupTitle.setText(_translate("signupWindow", "<html><head/><body><p align=\"center\">SIGN UP</p></body></html>"))
         self.labelSignupPassword.setText(_translate("signupWindow", "<html><head/><body><p>Password</p></body></html>"))

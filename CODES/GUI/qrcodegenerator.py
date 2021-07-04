@@ -144,7 +144,7 @@ class Ui_qrcodegeneratorWindow(object):
 
     def retranslateUi(self, qrcodegeneratorWindow):
         _translate = QtCore.QCoreApplication.translate
-        qrcodegeneratorWindow.setWindowTitle(_translate("qrcodegeneratorWindow", "TUP-C UITC INVENTORY SYSTEM"))
+        qrcodegeneratorWindow.setWindowTitle(_translate("qrcodegeneratorWindow", "QR Code Generator - TUP-C UITC INVENTORY SYSTEM"))
         self.comboBoxQrcodeItemCode.setCurrentText(_translate("qrcodegeneratorWindow", "Click here to choose Equipment"))
         self.comboBoxQrcodeItemCode.setItemText(0, _translate("qrcodegeneratorWindow", "Click here to choose Equipment"))
         self.labelQRcodeNumbering.setText(_translate("qrcodegeneratorWindow", "Set QR Code Numbering"))

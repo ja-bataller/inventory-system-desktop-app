@@ -157,7 +157,7 @@ class Ui_addremoveitemWindow(object):
 
     def retranslateUi(self, addremoveitemWindow):
         _translate = QtCore.QCoreApplication.translate
-        addremoveitemWindow.setWindowTitle(_translate("addremoveitemWindow", "TUP-C UITC INVENTORY SYSTEM"))
+        addremoveitemWindow.setWindowTitle(_translate("addremoveitemWindow", "Update Inventory - TUP-C UITC INVENTORY SYSTEM"))
         self.pushButtonUpdateinventoryConfirm.setText(_translate("addremoveitemWindow", "CONFIRM"))
         self.labelUpdateInventoryTitle.setText(_translate("addremoveitemWindow", "UPDATE INVENTORY"))
         self.pusButtonUpdateInventoryBack.setText(_translate("addremoveitemWindow", "BACK"))

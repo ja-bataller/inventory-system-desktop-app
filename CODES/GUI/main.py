@@ -15,9 +15,9 @@ class Ui_MainSystemWindow(object):
     def setupUi(self, MainSystemWindow):
         MainSystemWindow.setObjectName("MainSystemWindow")
         MainSystemWindow.resize(1824, 954)
+        MainSystemWindow.setGeometry(50, 60, 1824, 954)
         MainSystemWindow.setMinimumSize(QtCore.QSize(1824, 954))
         MainSystemWindow.setMaximumSize(QtCore.QSize(1824, 954))
-        MainSystemWindow.setGeometry(50, 60, 1824, 954)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("E:\\PROGRAMMING\\DESKTOP-APP\\Inventory_System_via_QRcode [TUP-C_UITC]\\GUI [UI_FILES]\\icons/INVENTORY.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainSystemWindow.setWindowIcon(icon)
@@ -102,7 +102,7 @@ class Ui_MainSystemWindow(object):
 "color: rgb(255, 255, 255);")
         self.MainSystemAccountSettingsLbl.setObjectName("MainSystemAccountSettingsLbl")
         self.MainSystemItemRecordsLbl = QtWidgets.QLabel(self.centralwidget)
-        self.MainSystemItemRecordsLbl.setGeometry(QtCore.QRect(170, 200, 171, 51))
+        self.MainSystemItemRecordsLbl.setGeometry(QtCore.QRect(190, 200, 171, 51))
         font = QtGui.QFont()
         font.setPointSize(18)
         self.MainSystemItemRecordsLbl.setFont(font)
@@ -142,7 +142,7 @@ class Ui_MainSystemWindow(object):
 "background-color: rgb(48, 48, 48);")
         self.MainSystemHelpLbl.setObjectName("MainSystemHelpLbl")
         self.tableWidget = QtWidgets.QTableWidget(self.centralwidget)
-        self.tableWidget.setGeometry(QtCore.QRect(50, 280, 451, 631))
+        self.tableWidget.setGeometry(QtCore.QRect(40, 280, 491, 631))
         self.tableWidget.viewport().setProperty("cursor", QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.tableWidget.setAutoFillBackground(True)
         self.tableWidget.setStyleSheet("background-color: rgb(255, 255, 255);\n"
@@ -173,7 +173,7 @@ class Ui_MainSystemWindow(object):
 "background-color: rgb(48, 48, 48);")
         self.MainSystemAboutLbl.setObjectName("MainSystemAboutLbl")
         self.tableWidget_2 = QtWidgets.QTableWidget(self.centralwidget)
-        self.tableWidget_2.setGeometry(QtCore.QRect(570, 280, 861, 631))
+        self.tableWidget_2.setGeometry(QtCore.QRect(580, 280, 861, 631))
         self.tableWidget_2.viewport().setProperty("cursor", QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.tableWidget_2.setAutoFillBackground(True)
         self.tableWidget_2.setStyleSheet("background-color: rgb(255, 255, 255);\n"
@@ -201,16 +201,17 @@ class Ui_MainSystemWindow(object):
         self.MainSystemBG2Lbl_4.setText("")
         self.MainSystemBG2Lbl_4.setObjectName("MainSystemBG2Lbl_4")
         self.comboBoxMainRecords = QtWidgets.QComboBox(self.centralwidget)
-        self.comboBoxMainRecords.setGeometry(QtCore.QRect(650, 220, 781, 41))
+        self.comboBoxMainRecords.setGeometry(QtCore.QRect(660, 220, 781, 41))
         self.comboBoxMainRecords.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.comboBoxMainRecords.setStyleSheet("border-radius: 10px;\n"
+        self.comboBoxMainRecords.setStyleSheet("\n"
 "color: rgb(255, 255, 255);\n"
 "background-color: rgb(65, 65, 65);")
         self.comboBoxMainRecords.setEditable(False)
+        self.comboBoxMainRecords.setInsertPolicy(QtWidgets.QComboBox.InsertAtTop)
         self.comboBoxMainRecords.setObjectName("comboBoxMainRecords")
         self.comboBoxMainRecords.addItem("")
         self.pushButtonMainShowRecords = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButtonMainShowRecords.setGeometry(QtCore.QRect(570, 230, 71, 31))
+        self.pushButtonMainShowRecords.setGeometry(QtCore.QRect(580, 230, 71, 31))
         self.pushButtonMainShowRecords.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.pushButtonMainShowRecords.setStyleSheet("background-color: rgb(65, 65, 65);\n"
 "color: rgb(255, 255, 255);")
@@ -334,7 +335,7 @@ class Ui_MainSystemWindow(object):
 
     def retranslateUi(self, MainSystemWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainSystemWindow.setWindowTitle(_translate("MainSystemWindow", "TUP-C UITC INVENTORY SYSTEM"))
+        MainSystemWindow.setWindowTitle(_translate("MainSystemWindow", "Home - TUP-C UITC INVENTORY SYSTEM"))
         self.MainSystemUserLbl.setText(_translate("MainSystemWindow", "<html><head/><body><p><br/></p></body></html>"))
         self.MainSystemTUPCUITCLbl.setText(_translate("MainSystemWindow", "TUP-C UITC "))
         self.MainSystemInventorySystemLbl.setText(_translate("MainSystemWindow", "INVENTORY SYSTEM"))
@@ -354,21 +355,21 @@ class Ui_MainSystemWindow(object):
         item = self.tableWidget_2.horizontalHeaderItem(0)
         item.setText(_translate("MainSystemWindow", "Name"))
         item = self.tableWidget_2.horizontalHeaderItem(1)
-        item.setText(_translate("MainSystemWindow", "Borrower's ID"))
+        item.setText(_translate("MainSystemWindow", "Equipment"))
         item = self.tableWidget_2.horizontalHeaderItem(2)
         item.setText(_translate("MainSystemWindow", "Item Code"))
         item = self.tableWidget_2.horizontalHeaderItem(3)
         item.setText(_translate("MainSystemWindow", "Date Out"))
         item = self.tableWidget_2.horizontalHeaderItem(4)
         item.setText(_translate("MainSystemWindow", "Date In"))
-        self.comboBoxMainRecords.setCurrentText(_translate("MainSystemWindow", "Click here to show borrower\'s"))
-        self.comboBoxMainRecords.setItemText(0, _translate("MainSystemWindow", "Click here to show borrower\'s"))
+        self.comboBoxMainRecords.setCurrentText(_translate("MainSystemWindow", "--- SHOW ALL ---"))
+        self.comboBoxMainRecords.setItemText(0, _translate("MainSystemWindow", "--- SHOW ALL ---"))
         self.pushButtonMainShowRecords.setText(_translate("MainSystemWindow", "Show"))
         self.MainSystemUserAccountLbl.setText(_translate("MainSystemWindow", "<html><head/><body><p><br/></p></body></html>"))
-        self.MainSystemItemInLbl.setText(_translate("MainSystemWindow", "ITEM IN"))
+        self.MainSystemItemInLbl.setText(_translate("MainSystemWindow", "IN ITEM"))
         self.MainSystemQrCodeGeneratorLbl_2.setText(_translate("MainSystemWindow", "QR CODE GENERATOR"))
         self.MainSystemAddItemLbl.setText(_translate("MainSystemWindow", "UPDATE ITEMS"))
-        self.MainSystemItemOutLbl.setText(_translate("MainSystemWindow", "ITEM OUT"))
+        self.MainSystemItemOutLbl.setText(_translate("MainSystemWindow", "OUT ITEM"))
 import icons
 
 
